@@ -13,7 +13,6 @@ pub fn interpret(source: &str) {
 
     // Current character we're processing.
     let mut curr = code[0];
-
     while pc < code.len() {
         curr = code[pc];
         match curr {
@@ -21,32 +20,27 @@ pub fn interpret(source: &str) {
             '<' => ptr -= 1,
             '+' => tape[ptr] += 1,
             '-' => tape[ptr] -= 1,
-            '.' => println!("{}", tape[ptr]),
+            '.' => println!("{}", tape[ptr] as char),
             ',' => {
                 let mut s = String::new();
-                stdin().read_line(&mut s).expect("What you wrote isn't text -__-");
+                stdin()
+                    .read_line(&mut s)
+                    .expect("What you wrote isn't text -__-");
                 tape[ptr] = s.chars().nth(0).unwrap() as u8;
-            }, // This should read input.
+            } // This should read input.
             '[' => {
                 if tape[ptr] == 0 {
-                   let mut bracket_nesting = 1;
-                   let saved_pc = pc;
-                    while bracket_nesting != 0 && pc + 1 < code.len() {
+                    let mut bracket_nesting = 1;
+                    let saved_pc = pc;
+                    while bracket_nesting != 0 {
                         if code[pc] == ']' {
                             bracket_nesting -= 1;
                         } else if code[pc] == '[' {
                             bracket_nesting += 1;
                         }
-                        pc += 1;
-                    }
-                    if bracket_nesting == 0 {
-                        break;
-                    } else {
-                        panic!("unmatched '[' at pc = {}", saved_pc);
                     }
                 }
-
-            },
+            }
             ']' => {
                 if tape[ptr] != 0 {
                     let mut bracket_nesting = 1;
@@ -60,11 +54,6 @@ pub fn interpret(source: &str) {
                             bracket_nesting += 1;
                         }
                     }
-                    if bracket_nesting == 0 {
-                        break;
-                    } else {
-                        panic!("unmatched ']' at pc = {}", saved_pc);
-                    }
                 }
             }
             _ => (),
@@ -76,6 +65,7 @@ pub fn interpret(source: &str) {
 fn main() {
     let _test_program = ">>>>++.";
     let echo_program = "+[>,.,.<]";
+    let _hello_world = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.";
     println!("Welcom to BFF (Brainf*ck Friends) interpreter and compiler.");
     interpret(echo_program);
 }
