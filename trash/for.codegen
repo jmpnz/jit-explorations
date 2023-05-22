@@ -1,0 +1,31 @@
+
+for.o:	file format mach-o arm64
+
+Disassembly of section __TEXT,__text:
+
+0000000000000000 <ltmp0>:
+       0: ff 43 00 d1  	sub	sp, sp, #16
+       4: e0 0f 00 b9  	str	w0, [sp, #12]
+       8: e1 0b 00 b9  	str	w1, [sp, #8]
+       c: ff 07 00 b9  	str	wzr, [sp, #4]
+      10: ff 03 00 b9  	str	wzr, [sp]
+      14: ff 07 00 b9  	str	wzr, [sp, #4]
+      18: 01 00 00 14  	b	0x1c <ltmp0+0x1c>
+      1c: e8 07 40 b9  	ldr	w8, [sp, #4]
+      20: e9 0b 40 b9  	ldr	w9, [sp, #8]
+      24: 08 01 09 6b  	subs	w8, w8, w9
+      28: e8 b7 9f 1a  	cset	w8, ge
+      2c: 68 01 00 37  	tbnz	w8, #0, 0x58 <ltmp0+0x58>
+      30: 01 00 00 14  	b	0x34 <ltmp0+0x34>
+      34: e9 0f 40 b9  	ldr	w9, [sp, #12]
+      38: e8 03 40 b9  	ldr	w8, [sp]
+      3c: 08 01 09 0b  	add	w8, w8, w9
+      40: e8 03 00 b9  	str	w8, [sp]
+      44: 01 00 00 14  	b	0x48 <ltmp0+0x48>
+      48: e8 07 40 b9  	ldr	w8, [sp, #4]
+      4c: 08 05 00 11  	add	w8, w8, #1
+      50: e8 07 00 b9  	str	w8, [sp, #4]
+      54: f2 ff ff 17  	b	0x1c <ltmp0+0x1c>
+      58: e0 03 40 b9  	ldr	w0, [sp]
+      5c: ff 43 00 91  	add	sp, sp, #16
+      60: c0 03 5f d6  	ret

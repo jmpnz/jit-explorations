@@ -1,0 +1,24 @@
+
+if-else.o:	file format mach-o arm64
+
+Disassembly of section __TEXT,__text:
+
+0000000000000000 <ltmp0>:
+       0: ff 43 00 d1  	sub	sp, sp, #16
+       4: e0 0b 00 b9  	str	w0, [sp, #8]
+       8: e1 07 00 b9  	str	w1, [sp, #4]
+       c: e8 0b 40 b9  	ldr	w8, [sp, #8]
+      10: e9 07 40 b9  	ldr	w9, [sp, #4]
+      14: 08 01 09 6b  	subs	w8, w8, w9
+      18: e8 c7 9f 1a  	cset	w8, le
+      1c: a8 00 00 37  	tbnz	w8, #0, 0x30 <ltmp0+0x30>
+      20: 01 00 00 14  	b	0x24 <ltmp0+0x24>
+      24: e8 0b 40 b9  	ldr	w8, [sp, #8]
+      28: e8 0f 00 b9  	str	w8, [sp, #12]
+      2c: 04 00 00 14  	b	0x3c <ltmp0+0x3c>
+      30: e8 07 40 b9  	ldr	w8, [sp, #4]
+      34: e8 0f 00 b9  	str	w8, [sp, #12]
+      38: 01 00 00 14  	b	0x3c <ltmp0+0x3c>
+      3c: e0 0f 40 b9  	ldr	w0, [sp, #12]
+      40: ff 43 00 91  	add	sp, sp, #16
+      44: c0 03 5f d6  	ret
