@@ -1,8 +1,11 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/mman.h>
 #include <stdbool.h>
 #include <pthread.h>
+#include <time.h>
+#include <assert.h>
 
 int main() {
 
@@ -24,6 +27,11 @@ unsigned char code[] = {
     __builtin___clear_cache((void *)mem, (void *)mem + sizeof(code));
     pthread_jit_write_protect_np(true);
     int (*func) () = mem;
-    printf("%d * %d = %d\n", 5, 11, func(5, 11));
+    srand(time(NULL));
+    for (int i = 0;i < 100;i++) {
+        int r = rand();
+        // printf("%d * %d = %d\n", 5, 11, func(5, 11));
+        assert(func(i,r) == i * r);
+    }
     munmap(mem, sizeof(code));
 }
