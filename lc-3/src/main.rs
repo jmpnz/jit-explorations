@@ -120,7 +120,7 @@ impl VirtualMachine {
         // TODO: make it a match
         if mode != 0 {
             // five-bit immediate
-            let imm5 = sext(inst & 0x1f, 5);
+            let imm5 = sign_extend(inst & 0x1f, 5);
             self.registers[r0 as usize] = self.registers[r1 as usize] + imm5;
         } else {
             let r2 = inst & 0x7;
@@ -138,11 +138,48 @@ impl VirtualMachine {
     // loop.
     pub fn ldi(&mut self, inst: u16) {
         let r0 = (inst >> 9) & 0x7;
-        let offset = sext(inst & 0x1FF, 9);
+        let offset = sign_extend(inst & 0x1FF, 9);
         let rel_offset = self.registers[Register::Pc as usize] + offset;
         let size = 2 as usize;
         self.registers[r0 as usize] = self.mem_read(rel_offset as usize, size);
         self.update_flags(r0)
+    }
+
+    // Bitwise AND.
+    pub fn and(&mut self, inst: u16) {
+        let r0 = (inst >> 9) & 0x7;
+        let r1 = (inst >> 6) & 0x7;
+        let imm_flag = (inst >> 5) & 0x1;
+
+        if imm_flag != 0 {
+            let imm5 = sign_extend(inst & 0x1f, 5);
+            self.registers[r0 as usize] = self.registers[r1 as usize] & imm5;
+        } else {
+            let r2 = inst & 0x7;
+            self.registers[r0 as usize] =
+                self.registers[r1 as usize] & self.registers[r2 as usize];
+        }
+        self.update_flags(r0)
+    }
+
+    // Bitwise NOT.
+    pub fn not(&mut self, inst: u16) {
+        let r0 = (inst >> 9) & 0x7;
+        let r1 = (inst >> 6) & 0x7;
+
+        self.registers[r0 as usize] = !self.registers[r1 as usize];
+        self.update_flags(r0)
+    }
+
+    // Branch
+    pub fn br(&mut self, inst: u16) {
+        let offset = sign_extend(inst & 0x1ff, 9);
+        let cond_flag = (inst >> 9) & 0x7;
+        let cond = self.registers[Register::Cond as usize];
+
+        if (cond_flag & cond) != 0 {
+            self.registers[Register::Pc as usize] += offset;
+        }
     }
 
     // Trap routines are implemented by passing execution to the host language
@@ -158,7 +195,7 @@ impl VirtualMachine {
 // Sign extension for immediate values, sign extension is used
 // to extend values stored in n-bits to m-bits (m > n) and also
 // preserve their sign.
-fn sext(x: u16, bit_count: usize) -> u16 {
+fn sign_extend(x: u16, bit_count: usize) -> u16 {
     // To explain this section an example would be better.
     // First negative numbers are usually encoded using two complements
     // The steps for two complements are very simple :
@@ -215,7 +252,9 @@ fn main() {
             Some(OPCode::Sti) => println!("Sti"),
             Some(OPCode::Str) => println!("Str"),
             Some(OPCode::Trap) => println!("Trap"),
-            Some(OPCode::Res | OPCode::Rti) => println!("Riti"),
+            Some(OPCode::Res | OPCode::Rti) => {
+                panic!("Unsupported instruction")
+            }
             None => println!("Unknown instruction"),
         }
         break;
