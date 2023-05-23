@@ -102,6 +102,27 @@ impl VirtualMachine {
             self.registers[Register::Cond as usize] = CondFlags::Pos as u16;
         }
     }
+
+    // Execute add instruction.
+    pub fn add(&mut self, inst: u16) {
+        // destination register.
+        let r0 = (inst >> 9) & 0x7;
+        // source operand.
+        let r1 = (inst >> 6) & 0x7;
+        // execution mode (immediate or register)
+        let mode = (inst >> 5) & 0x1;
+
+        if mode != 0 {
+            // five-bit immediate
+            let imm5 = sext(inst & 0x1f, 5);
+            self.registers[r0 as usize] = self.registers[r1 as usize] + imm5;
+        } else {
+            let r2 = inst & 0x7;
+            self.registers[r0 as usize] =
+                self.registers[r1 as usize] + self.registers[r2 as usize];
+        }
+        self.update_flags(r0)
+    }
 }
 
 // Sign extension for immediate values, sign extension is used
@@ -109,9 +130,10 @@ impl VirtualMachine {
 // preserve their sign.
 fn sext(x: u16, bit_count: usize) -> u16 {
     if ((x >> (bit_count - 1)) & 1) != 0 {
-        return x | (0xFFFF << bit_count);
+        x | (0xFFFF << bit_count)
+    } else {
+        x
     }
-    x
 }
 
 fn main() {
@@ -145,7 +167,7 @@ fn main() {
             Some(OPCode::Sti) => println!("Sti"),
             Some(OPCode::Str) => println!("Str"),
             Some(OPCode::Trap) => println!("Trap"),
-            Some(OPCode::Res) | Some(OPCode::Rti) => println!("Riti"),
+            Some(OPCode::Res | OPCode::Rti) => println!("Riti"),
             None => println!("Unknown instruction"),
         }
         break;
