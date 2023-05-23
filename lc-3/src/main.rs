@@ -92,6 +92,12 @@ impl VirtualMachine {
     pub fn read(&self, pos: usize) -> u16 {
         self.memory[pos]
     }
+
+    // Read `size` bytes from memory at given index.
+    pub fn mem_read(&self, size: usize, pos: usize) -> u16 {
+        todo!();
+    }
+
     // Update condition flags on each register write.
     pub fn update_flags(&mut self, r: u16) {
         if self.registers[r as usize] == 0 {
@@ -103,7 +109,7 @@ impl VirtualMachine {
         }
     }
 
-    // Execute add instruction.
+    // Execute add instruction with support for immediate mode flag.
     pub fn add(&mut self, inst: u16) {
         // destination register.
         let r0 = (inst >> 9) & 0x7;
@@ -122,6 +128,30 @@ impl VirtualMachine {
                 self.registers[r1 as usize] + self.registers[r2 as usize];
         }
         self.update_flags(r0)
+    }
+
+    // Execute Ldi instruction, load a value from a PC relative offset into
+    // the destination register.
+    // Encoding format :
+    // opcode (4 bits) | destination register (3 bits) | offset (9 bits)
+    // PC is incremented before we compute the relative offset in the execution
+    // loop.
+    pub fn ldi(&mut self, inst: u16) {
+        let r0 = (inst >> 9) & 0x7;
+        let offset = sext(inst & 0x1FF, 9);
+        let rel_offset = self.registers[Register::Pc as usize] + offset;
+        let size = 2 as usize;
+        self.registers[r0 as usize] = self.mem_read(rel_offset as usize, size);
+        self.update_flags(r0)
+    }
+
+    // Trap routines are implemented by passing execution to the host language
+    // runtime, in this case Rust. If for example a trap instruction was for
+    // suspending execution it would suspend it and pass it to a Debugger
+    // runtime function where you can step in or out. Same goes for handling
+    // I/O like writing to a terminal or reading from the keyboard.
+    pub fn trap(&self) {
+        todo!();
     }
 }
 
@@ -147,6 +177,8 @@ fn main() {
     loop {
         // Offset of the next instruction.
         let offset = vm.registers[Register::Pc as usize];
+        // Increment the program counter.
+        vm.registers[Register::Pc as usize] += 1;
         // Fetch the next instruction.
         let inst = vm.read(offset as usize);
         // Decode the next instruction.
