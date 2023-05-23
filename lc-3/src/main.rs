@@ -117,7 +117,7 @@ impl VirtualMachine {
         let r1 = (inst >> 6) & 0x7;
         // execution mode (immediate or register)
         let mode = (inst >> 5) & 0x1;
-
+        // TODO: make it a match
         if mode != 0 {
             // five-bit immediate
             let imm5 = sext(inst & 0x1f, 5);
@@ -159,6 +159,22 @@ impl VirtualMachine {
 // to extend values stored in n-bits to m-bits (m > n) and also
 // preserve their sign.
 fn sext(x: u16, bit_count: usize) -> u16 {
+    // To explain this section an example would be better.
+    // First negative numbers are usually encoded using two complements
+    // The steps for two complements are very simple :
+    // Let's say we want the representation of -1.
+    // 1. Start with 1 in binary 5 bits 0b00001
+    // 2. Flip all the bits : 0b11110
+    // 3. Add 1 : 0b11111
+    // Sign extension works as follow we consider the above example extended
+    // to 16 bits.
+    // 1. Shift the bits of x to the left by their size in bits - 1
+    //    0b11111 >> (5 - 1) => 0b1
+    // 2. Do bitwise AND with 1 => 0b1 AND 1 =>1 != 0
+    // 3. Do bitwise OR with the maximum value of the target in this case
+    //    16 bits <=> 0xFFFF and then right shift by the original bit size.
+    // 4. 0b11111 | 0b1111111111111111 <=> 0b1111111111111111<< 5
+    //    which gives us : 0b1111111100000
     if ((x >> (bit_count - 1)) & 1) != 0 {
         x | (0xFFFF << bit_count)
     } else {
