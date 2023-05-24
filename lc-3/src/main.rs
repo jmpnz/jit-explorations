@@ -93,9 +93,14 @@ impl VirtualMachine {
         self.memory[pos]
     }
 
-    // Read `size` bytes from memory at given index.
-    pub fn mem_read(&self, size: usize, pos: usize) -> u16 {
-        todo!();
+    // Read from memory at address.
+    pub fn mem_read(&self, address: usize) -> u16 {
+        self.memory[address]
+    }
+
+    // Write at memory address.
+    pub fn mem_write(&mut self, address: usize, value: u16) {
+        self.memory[address] = value
     }
 
     // Update condition flags on each register write.
@@ -141,7 +146,7 @@ impl VirtualMachine {
         let offset = sign_extend(inst & 0x1FF, 9);
         let rel_offset = self.registers[Register::Pc as usize] + offset;
         let size = 2 as usize;
-        self.registers[r0 as usize] = self.mem_read(rel_offset as usize, size);
+        self.registers[r0 as usize] = self.mem_read(rel_offset as usize);
         self.update_flags(r0)
     }
 
@@ -180,6 +185,80 @@ impl VirtualMachine {
         if (cond_flag & cond) != 0 {
             self.registers[Register::Pc as usize] += offset;
         }
+    }
+
+    // Jump
+    pub fn jmp(&mut self, inst: u16) {
+        let r1 = (inst >> 6) & 0x7;
+        self.registers[Register::Pc as usize] = self.registers[r1 as usize];
+    }
+
+    // Jump to register.
+    pub fn jsr(&mut self, inst: u16) {
+        let long_flag = (inst >> 11) & 1;
+        self.registers[Register::R7 as usize] =
+            self.registers[Register::Pc as usize];
+        if long_flag != 0 {
+            let offset = sign_extend(inst & 0x7ff, 11);
+            self.registers[Register::Pc as usize] += offset;
+        } else {
+            let r1 = (inst >> 6) & 0x7;
+            self.registers[Register::Pc as usize] = self.registers[r1 as usize];
+        }
+    }
+
+    // Load
+    pub fn ld(&mut self, inst: u16) {
+        let r0 = (inst >> 9) & 0x7;
+        let offset = sign_extend(inst & 0x1FF, 9);
+        self.registers[r0 as usize] =
+            self.mem_read((self.registers[Register::Pc as usize] + offset) as usize);
+        self.update_flags(r0)
+    }
+
+    // Load register
+    pub fn ldr(&mut self, inst: u16) {
+        let r0 = (inst >> 9) & 0x7;
+        let r1 = (inst >> 6) & 0x7;
+        let offset = sign_extend(inst & 0x3f, 6);
+        self.registers[r0 as usize] =
+            self.mem_read((self.registers[r1 as usize] + offset) as usize);
+        self.update_flags(r0)
+    }
+
+    // Load effective address
+    pub fn lea(&mut self, inst: u16) {
+        let r0 = (inst >> 9) & 0x7;
+        let offset = sign_extend(inst & 0x1ff, 9);
+        self.registers[r0 as usize] = self.registers[Register::Pc as usize] + offset;
+        self.update_flags(r0)
+    }
+
+    // Store.
+    pub fn st(&mut self, inst: u16) {
+        let r0 = (inst >> 9) & 0x7;
+        let offset = sign_extend(inst & 0x1ff, 9);
+        let addr = (self.registers[Register::Pc as usize] + offset) as usize;
+        self.mem_write(addr, self.registers[r0 as usize])
+    }
+
+    // Store indirect.
+    pub fn sti(&mut self, inst: u16) {
+        let r0 = (inst >> 9) & 0x7;
+        let offset = sign_extend(inst & 0x1ff, 9);
+        let addr = self.mem_read((self.registers[Register::Pc as usize] + offset) as usize);
+        self.mem_write(addr as usize, self.registers[r0 as usize])
+    }
+
+    // Store register.
+    pub fn str(&mut self, inst: u16) {
+        let r0 = (inst >> 9) & 0x7;
+        let r1 = (inst >> 6) & 0x7;
+        let offset = sign_extend(inst & 0x3f, 6);
+        self.mem_write(
+            (self.registers[r1 as usize] + offset) as usize,
+            self.registers[r0 as usize],
+        )
     }
 
     // Trap routines are implemented by passing execution to the host language
