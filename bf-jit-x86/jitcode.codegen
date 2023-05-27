@@ -1,0 +1,174 @@
+
+/tmp/simplejit.bin:     file format binary
+
+
+Disassembly of section .data:
+
+0000000000000000 <.data>:
+   0:	49 bd 20 00 00 be 7e 	movabs $0x107ebe000020,%r13
+   7:	10 00 00 
+   a:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+   f:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+  14:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+  19:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+  1e:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+  23:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+  28:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+  2d:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+  32:	41 80 7d 00 00       	cmpb   $0x0,0x0(%r13)
+  37:	0f 84 c6 00 00 00    	je     0x103
+  3d:	49 ff c5             	inc    %r13
+  40:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+  45:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+  4a:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+  4f:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+  54:	41 80 7d 00 00       	cmpb   $0x0,0x0(%r13)
+  59:	0f 84 55 00 00 00    	je     0xb4
+  5f:	49 ff c5             	inc    %r13
+  62:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+  67:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+  6c:	49 ff c5             	inc    %r13
+  6f:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+  74:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+  79:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+  7e:	49 ff c5             	inc    %r13
+  81:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+  86:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+  8b:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+  90:	49 ff c5             	inc    %r13
+  93:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+  98:	49 ff cd             	dec    %r13
+  9b:	49 ff cd             	dec    %r13
+  9e:	49 ff cd             	dec    %r13
+  a1:	49 ff cd             	dec    %r13
+  a4:	41 80 6d 00 01       	subb   $0x1,0x0(%r13)
+  a9:	41 80 7d 00 00       	cmpb   $0x0,0x0(%r13)
+  ae:	0f 85 ab ff ff ff    	jne    0x5f
+  b4:	49 ff c5             	inc    %r13
+  b7:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+  bc:	49 ff c5             	inc    %r13
+  bf:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+  c4:	49 ff c5             	inc    %r13
+  c7:	41 80 6d 00 01       	subb   $0x1,0x0(%r13)
+  cc:	49 ff c5             	inc    %r13
+  cf:	49 ff c5             	inc    %r13
+  d2:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+  d7:	41 80 7d 00 00       	cmpb   $0x0,0x0(%r13)
+  dc:	0f 84 0e 00 00 00    	je     0xf0
+  e2:	49 ff cd             	dec    %r13
+  e5:	41 80 7d 00 00       	cmpb   $0x0,0x0(%r13)
+  ea:	0f 85 f2 ff ff ff    	jne    0xe2
+  f0:	49 ff cd             	dec    %r13
+  f3:	41 80 6d 00 01       	subb   $0x1,0x0(%r13)
+  f8:	41 80 7d 00 00       	cmpb   $0x0,0x0(%r13)
+  fd:	0f 85 3a ff ff ff    	jne    0x3d
+ 103:	49 ff c5             	inc    %r13
+ 106:	49 ff c5             	inc    %r13
+ 109:	48 c7 c0 01 00 00 00 	mov    $0x1,%rax
+ 110:	48 c7 c7 01 00 00 00 	mov    $0x1,%rdi
+ 117:	4c 89 ee             	mov    %r13,%rsi
+ 11a:	48 c7 c2 01 00 00 00 	mov    $0x1,%rdx
+ 121:	0f 05                	syscall 
+ 123:	49 ff c5             	inc    %r13
+ 126:	41 80 6d 00 01       	subb   $0x1,0x0(%r13)
+ 12b:	41 80 6d 00 01       	subb   $0x1,0x0(%r13)
+ 130:	41 80 6d 00 01       	subb   $0x1,0x0(%r13)
+ 135:	48 c7 c0 01 00 00 00 	mov    $0x1,%rax
+ 13c:	48 c7 c7 01 00 00 00 	mov    $0x1,%rdi
+ 143:	4c 89 ee             	mov    %r13,%rsi
+ 146:	48 c7 c2 01 00 00 00 	mov    $0x1,%rdx
+ 14d:	0f 05                	syscall 
+ 14f:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+ 154:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+ 159:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+ 15e:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+ 163:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+ 168:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+ 16d:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+ 172:	48 c7 c0 01 00 00 00 	mov    $0x1,%rax
+ 179:	48 c7 c7 01 00 00 00 	mov    $0x1,%rdi
+ 180:	4c 89 ee             	mov    %r13,%rsi
+ 183:	48 c7 c2 01 00 00 00 	mov    $0x1,%rdx
+ 18a:	0f 05                	syscall 
+ 18c:	48 c7 c0 01 00 00 00 	mov    $0x1,%rax
+ 193:	48 c7 c7 01 00 00 00 	mov    $0x1,%rdi
+ 19a:	4c 89 ee             	mov    %r13,%rsi
+ 19d:	48 c7 c2 01 00 00 00 	mov    $0x1,%rdx
+ 1a4:	0f 05                	syscall 
+ 1a6:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+ 1ab:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+ 1b0:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+ 1b5:	48 c7 c0 01 00 00 00 	mov    $0x1,%rax
+ 1bc:	48 c7 c7 01 00 00 00 	mov    $0x1,%rdi
+ 1c3:	4c 89 ee             	mov    %r13,%rsi
+ 1c6:	48 c7 c2 01 00 00 00 	mov    $0x1,%rdx
+ 1cd:	0f 05                	syscall 
+ 1cf:	49 ff c5             	inc    %r13
+ 1d2:	49 ff c5             	inc    %r13
+ 1d5:	48 c7 c0 01 00 00 00 	mov    $0x1,%rax
+ 1dc:	48 c7 c7 01 00 00 00 	mov    $0x1,%rdi
+ 1e3:	4c 89 ee             	mov    %r13,%rsi
+ 1e6:	48 c7 c2 01 00 00 00 	mov    $0x1,%rdx
+ 1ed:	0f 05                	syscall 
+ 1ef:	49 ff cd             	dec    %r13
+ 1f2:	41 80 6d 00 01       	subb   $0x1,0x0(%r13)
+ 1f7:	48 c7 c0 01 00 00 00 	mov    $0x1,%rax
+ 1fe:	48 c7 c7 01 00 00 00 	mov    $0x1,%rdi
+ 205:	4c 89 ee             	mov    %r13,%rsi
+ 208:	48 c7 c2 01 00 00 00 	mov    $0x1,%rdx
+ 20f:	0f 05                	syscall 
+ 211:	49 ff cd             	dec    %r13
+ 214:	48 c7 c0 01 00 00 00 	mov    $0x1,%rax
+ 21b:	48 c7 c7 01 00 00 00 	mov    $0x1,%rdi
+ 222:	4c 89 ee             	mov    %r13,%rsi
+ 225:	48 c7 c2 01 00 00 00 	mov    $0x1,%rdx
+ 22c:	0f 05                	syscall 
+ 22e:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+ 233:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+ 238:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+ 23d:	48 c7 c0 01 00 00 00 	mov    $0x1,%rax
+ 244:	48 c7 c7 01 00 00 00 	mov    $0x1,%rdi
+ 24b:	4c 89 ee             	mov    %r13,%rsi
+ 24e:	48 c7 c2 01 00 00 00 	mov    $0x1,%rdx
+ 255:	0f 05                	syscall 
+ 257:	41 80 6d 00 01       	subb   $0x1,0x0(%r13)
+ 25c:	41 80 6d 00 01       	subb   $0x1,0x0(%r13)
+ 261:	41 80 6d 00 01       	subb   $0x1,0x0(%r13)
+ 266:	41 80 6d 00 01       	subb   $0x1,0x0(%r13)
+ 26b:	41 80 6d 00 01       	subb   $0x1,0x0(%r13)
+ 270:	41 80 6d 00 01       	subb   $0x1,0x0(%r13)
+ 275:	48 c7 c0 01 00 00 00 	mov    $0x1,%rax
+ 27c:	48 c7 c7 01 00 00 00 	mov    $0x1,%rdi
+ 283:	4c 89 ee             	mov    %r13,%rsi
+ 286:	48 c7 c2 01 00 00 00 	mov    $0x1,%rdx
+ 28d:	0f 05                	syscall 
+ 28f:	41 80 6d 00 01       	subb   $0x1,0x0(%r13)
+ 294:	41 80 6d 00 01       	subb   $0x1,0x0(%r13)
+ 299:	41 80 6d 00 01       	subb   $0x1,0x0(%r13)
+ 29e:	41 80 6d 00 01       	subb   $0x1,0x0(%r13)
+ 2a3:	41 80 6d 00 01       	subb   $0x1,0x0(%r13)
+ 2a8:	41 80 6d 00 01       	subb   $0x1,0x0(%r13)
+ 2ad:	41 80 6d 00 01       	subb   $0x1,0x0(%r13)
+ 2b2:	41 80 6d 00 01       	subb   $0x1,0x0(%r13)
+ 2b7:	48 c7 c0 01 00 00 00 	mov    $0x1,%rax
+ 2be:	48 c7 c7 01 00 00 00 	mov    $0x1,%rdi
+ 2c5:	4c 89 ee             	mov    %r13,%rsi
+ 2c8:	48 c7 c2 01 00 00 00 	mov    $0x1,%rdx
+ 2cf:	0f 05                	syscall 
+ 2d1:	49 ff c5             	inc    %r13
+ 2d4:	49 ff c5             	inc    %r13
+ 2d7:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+ 2dc:	48 c7 c0 01 00 00 00 	mov    $0x1,%rax
+ 2e3:	48 c7 c7 01 00 00 00 	mov    $0x1,%rdi
+ 2ea:	4c 89 ee             	mov    %r13,%rsi
+ 2ed:	48 c7 c2 01 00 00 00 	mov    $0x1,%rdx
+ 2f4:	0f 05                	syscall 
+ 2f6:	49 ff c5             	inc    %r13
+ 2f9:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+ 2fe:	41 80 45 00 01       	addb   $0x1,0x0(%r13)
+ 303:	48 c7 c0 01 00 00 00 	mov    $0x1,%rax
+ 30a:	48 c7 c7 01 00 00 00 	mov    $0x1,%rdi
+ 311:	4c 89 ee             	mov    %r13,%rsi
+ 314:	48 c7 c2 01 00 00 00 	mov    $0x1,%rdx
+ 31b:	0f 05                	syscall 
+ 31d:	c3                   	retq   
