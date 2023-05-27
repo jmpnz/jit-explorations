@@ -9,12 +9,13 @@ then
     echo "To install Blink see : https://github.com/jart/blink"
 fi
 
-if ! [ -x "$(command -v x86_64-elf-gcc)" ];
+if ! [ -x "$(command -v x86_64-linux-musl-cc)" ];
 then
-    echo "x86-64 ELF gcc toolchain could not be found on your machine"
+    echo "You need a x86_64 toolchain on your machine."
     echo "To install x86-64 ELF gcc you can use brew :"
     echo "brew install x86_64-elf-gcc"
+    echo "You can also use x86_64-linux-musl-cc if you need libc for your code"
 fi
 
-x86_64-elf-gcc -nostdlib $1 -o $1.out
+x86_64-linux-musl-cc -static $1 -o $1.out
 blink $1.out
