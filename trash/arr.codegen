@@ -1,0 +1,51 @@
+
+arr.o:	file format mach-o arm64
+
+Disassembly of section __TEXT,__text:
+
+0000000000000000 <ltmp0>:
+       0: fc 6f be a9  	stp	x28, x27, [sp, #-32]!
+       4: fd 7b 01 a9  	stp	x29, x30, [sp, #16]
+       8: fd 43 00 91  	add	x29, sp, #16
+       c: ff 77 40 d1  	sub	sp, sp, #29, lsl #12    ; =118784
+      10: ff 83 13 d1  	sub	sp, sp, #1248
+      14: 08 00 00 90  	adrp	x8, 0x0 <ltmp0+0x14>
+      18: 08 01 40 f9  	ldr	x8, [x8]
+      1c: 08 01 40 f9  	ldr	x8, [x8]
+      20: a8 83 1e f8  	stur	x8, [x29, #-24]
+      24: e0 5f 00 39  	strb	w0, [sp, #23]
+      28: e8 63 00 91  	add	x8, sp, #24
+      2c: e8 07 00 f9  	str	x8, [sp, #8]
+      30: e8 5f c0 39  	ldrsb	w8, [sp, #23]
+      34: e8 07 00 b9  	str	w8, [sp, #4]
+      38: 08 f1 00 71  	subs	w8, w8, #60
+      3c: e8 17 9f 1a  	cset	w8, eq
+      40: e8 00 00 37  	tbnz	w8, #0, 0x5c <ltmp0+0x5c>
+      44: 01 00 00 14  	b	0x48 <ltmp0+0x48>
+      48: e8 07 40 b9  	ldr	w8, [sp, #4]
+      4c: 08 f9 00 71  	subs	w8, w8, #62
+      50: e8 17 9f 1a  	cset	w8, eq
+      54: c8 00 00 37  	tbnz	w8, #0, 0x6c <ltmp0+0x6c>
+      58: 09 00 00 14  	b	0x7c <ltmp0+0x7c>
+      5c: e8 07 40 f9  	ldr	x8, [sp, #8]
+      60: 08 11 00 91  	add	x8, x8, #4
+      64: e8 07 00 f9  	str	x8, [sp, #8]
+      68: 05 00 00 14  	b	0x7c <ltmp0+0x7c>
+      6c: e8 07 40 f9  	ldr	x8, [sp, #8]
+      70: 08 11 00 f1  	subs	x8, x8, #4
+      74: e8 07 00 f9  	str	x8, [sp, #8]
+      78: 01 00 00 14  	b	0x7c <ltmp0+0x7c>
+      7c: a9 83 5e f8  	ldur	x9, [x29, #-24]
+      80: 08 00 00 90  	adrp	x8, 0x0 <ltmp0+0x80>
+      84: 08 01 40 f9  	ldr	x8, [x8]
+      88: 08 01 40 f9  	ldr	x8, [x8]
+      8c: 08 01 09 eb  	subs	x8, x8, x9
+      90: e8 17 9f 1a  	cset	w8, eq
+      94: 68 00 00 37  	tbnz	w8, #0, 0xa0 <ltmp0+0xa0>
+      98: 01 00 00 14  	b	0x9c <ltmp0+0x9c>
+      9c: 00 00 00 94  	bl	0x9c <ltmp0+0x9c>
+      a0: ff 77 40 91  	add	sp, sp, #29, lsl #12    ; =118784
+      a4: ff 83 13 91  	add	sp, sp, #1248
+      a8: fd 7b 41 a9  	ldp	x29, x30, [sp, #16]
+      ac: fc 6f c2 a8  	ldp	x28, x27, [sp], #32
+      b0: c0 03 5f d6  	ret
