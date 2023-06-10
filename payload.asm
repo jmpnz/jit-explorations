@@ -1,5 +1,5 @@
 section .text
-global _start
+  global _start
 
 _start:
   ;; save cpu state
@@ -35,5 +35,6 @@ _start:
 
   ;; data for the print
   align 8
-    msg     db 0x1b,'[31mTesting Syscalls With Colors',0x1b,'[0m',0x0a,0
+    msg     db 0x1b,'[31mTesting Syscalls with nasm and gcc toolchain',0x1b,'[0m',0x0a,0
     msg_end db 0x0
+
